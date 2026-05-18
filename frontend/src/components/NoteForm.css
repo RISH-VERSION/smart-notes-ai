@@ -1,0 +1,122 @@
+/* ── Note Form ───────────────────────────────────────────────
+   Mimics Google Keep's "click to expand" input style.
+   Collapses to just a textarea, expands to show title + button.
+────────────────────────────────────────────────────────────── */
+.note-form {
+  max-width: 520px;
+  margin: 0 auto var(--space-xl);
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-form);
+  cursor: text;
+}
+
+/* Title input — hidden until expanded */
+.note-form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--font-main);
+  color: var(--color-text-primary);
+  background: transparent;
+  margin-bottom: var(--space-sm);
+}
+
+/* Content textarea */
+.note-form textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: var(--font-main);
+  color: var(--color-text-secondary);
+  background: transparent;
+  resize: none;
+  min-height: 40px;
+  line-height: 1.6;
+}
+
+/* Add button — targeted directly since no className in JSX */
+.note-form button:not(.close-btn) {
+  background: var(--color-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 18px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: var(--space-sm);
+}
+
+.note-form button:not(.close-btn):hover {
+  opacity: 0.85;
+}
+
+/* Close button — JSX uses className="close-btn" */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-family: var(--font-main);
+  color: var(--color-text-secondary);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: var(--space-sm);
+  margin-left: var(--space-sm);
+}
+
+.close-btn:hover {
+  background: var(--color-bg);
+}
+
+/* Keep these for future use if classNames are added */
+.note-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: 10px;
+  border-top: 0.5px solid var(--color-border);
+}
+
+.form-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-family: var(--font-main);
+  color: var(--color-text-secondary);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.form-close-btn:hover {
+  background: var(--color-bg);
+}
+
+.form-add-btn {
+  background: var(--color-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 18px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.form-add-btn:hover {
+  opacity: 0.85;
+}

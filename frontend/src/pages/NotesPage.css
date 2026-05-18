@@ -1,0 +1,174 @@
+/* ── Navbar ──────────────────────────────────────────────────
+   Sticky top bar — stays visible while user scrolls notes.
+   flexbox space-between pushes brand left, actions right.
+────────────────────────────────────────────────────────────── */
+.navbar {
+  position: sticky;         /* sticks to top when scrolling */
+  top: 0;
+  z-index: 100;             /* stays above note cards */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--space-lg);
+  background: var(--color-surface);
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Yellow square icon next to app name */
+.nav-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.nav-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-dark);
+}
+
+/* Right side: search + logout */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Pill-shaped search bar like Google Keep */
+.nav-search {
+  background: var(--color-bg);
+  border: 0.5px solid var(--color-border);
+  border-radius: 24px;        /* pill shape */
+  padding: 7px 16px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  color: var(--color-text-primary);
+  width: 200px;
+  outline: none;
+  transition: border-color 0.2s, width 0.3s; /* width expands on focus */
+}
+
+.nav-search:focus {
+  border-color: var(--color-accent);
+  width: 260px; /* expands when typing — nice UX detail */
+}
+
+/* Logout button — subtle, not competing with notes */
+.logout-btn {
+  background: transparent;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+  background: var(--color-bg);
+  color: var(--color-danger); /* turns red on hover — signals danger action */
+}
+
+/* ── Page content ────────────────────────────────────────────
+   Wraps the form + grid below the navbar.
+────────────────────────────────────────────────────────────── */
+.notes-content {
+  max-width: 1100px;  /* readable max width */
+  margin: 0 auto;     /* center horizontally */
+  padding: var(--space-lg);
+}
+
+/* Error/loading messages */
+.status-msg {
+  text-align: center;
+  padding: var(--space-md);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.error-msg {
+  text-align: center;
+  padding: var(--space-sm) var(--space-md);
+  font-size: 13px;
+  color: var(--color-danger);
+  background: #fdecea;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+}
+/* ── AI Search Result Box ────────────────────────────────────
+   Appears below navbar when user searches.
+   Yellow left border — consistent with AI feature styling.
+────────────────────────────────────────────────────────────── */
+.search-result-box {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-left: 3px solid var(--color-accent); /* yellow = AI feature */
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.search-result-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.search-result-text {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+  /* Override any max-height truncation */
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.search-result-query {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: var(--space-sm);
+}
+
+.search-result-loading {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Clear button — sits bottom right of result box */
+.search-clear-btn {
+  background: transparent;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  font-size: 12px;
+  font-family: var(--font-main);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.search-clear-btn:hover {
+  background: var(--color-bg);
+}

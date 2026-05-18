@@ -1,0 +1,106 @@
+/* ── Delete Confirmation Modal ───────────────────────────────
+   Full screen overlay with centered popup.
+   position: fixed covers everything including scrolled content.
+   Interview tip: fixed vs absolute — fixed is relative to viewport,
+   absolute is relative to nearest positioned ancestor.
+────────────────────────────────────────────────────────────── */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35); /* semi-transparent dark backdrop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200; /* above navbar (z-index: 100) */
+  padding: var(--space-md);
+}
+
+.confirm-box {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  position: relative; /* for the X button positioning */
+  box-shadow: var(--shadow-form);
+}
+
+.confirm-box h3 {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.confirm-box p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* X close button — top right corner */
+.confirm-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.confirm-close:hover {
+  color: var(--color-text-primary);
+}
+
+.confirm-btns {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+/* Cancel — outlined */
+.confirm-btn--cancel {
+  flex: 1;
+  padding: 9px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  background: transparent;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background 0.15s;
+}
+
+.confirm-btn--cancel:hover {
+  background: var(--color-bg);
+}
+
+/* Delete — filled red */
+.confirm-btn--delete {
+  flex: 1;
+  padding: 9px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  background: var(--color-danger);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.confirm-btn--delete:hover {
+  opacity: 0.88;
+}

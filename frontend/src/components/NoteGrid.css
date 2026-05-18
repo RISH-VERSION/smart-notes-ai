@@ -1,0 +1,30 @@
+/* ── Note Grid ───────────────────────────────────────────────
+   CSS Grid with auto-fill — automatically fits as many columns
+   as possible. Each column is min 240px, max 1fr.
+   Interview tip: auto-fill vs auto-fit — auto-fill keeps empty
+   columns, auto-fit collapses them. Use auto-fill for notes.
+────────────────────────────────────────────────────────────── */
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-md);
+  align-items: start; /* cards don't stretch to match tallest */
+}
+
+/* Empty state — targets <p> directly since no className on JSX element */
+.note-grid > p {
+  grid-column: 1 / -1; /* span all columns */
+  text-align: center;
+  padding: 4rem var(--space-md);
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* Keep this for future use if className is added */
+.note-grid-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem var(--space-md);
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}

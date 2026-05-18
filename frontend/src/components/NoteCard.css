@@ -1,0 +1,242 @@
+/* ── Note Card ───────────────────────────────────────────────
+   Each card is a self-contained unit.
+   Default white, but can be colored with modifier classes.
+────────────────────────────────────────────────────────────── */
+.note-card {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  transition: box-shadow 0.2s;
+
+  /* No fixed height — card grows with content naturally */
+  height: auto;
+}
+
+.note-card:hover {
+  box-shadow: var(--shadow-card);
+  /* card "lifts" on hover */
+}
+
+/* ── Color variants ──────────────────────────────────────────
+   BEM modifier classes — .note-card--yellow etc.
+   Interview tip: BEM = Block__Element--Modifier naming pattern.
+   These are applied in NoteCard.jsx based on note index or color.
+────────────────────────────────────────────────────────────── */
+.note-card--yellow {
+  background: var(--note-yellow);
+  border-color: var(--note-yellow-border);
+}
+
+.note-card--green {
+  background: var(--note-green);
+  border-color: var(--note-green-border);
+}
+
+.note-card--blue {
+  background: var(--note-blue);
+  border-color: var(--note-blue-border);
+}
+
+/* Note title */
+/* Title — still single line with ellipsis */
+.note-card h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Note body */
+.note-card p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+
+  /* Let card grow naturally up to a max height.
+     Interview tip: max-height is better than line-clamp here
+     because it respects the actual content size — card only
+     grows as much as it needs to, not always to full limit. */
+  max-height: 300px;
+  /* cap — cards won't grow beyond this */
+  overflow: hidden;
+  /* hide anything past max-height */
+  word-break: break-word;
+  /* break long words like "cccccccc..." */
+
+  /* Remove any previous line-clamp properties if you added them */
+  display: block;
+  /* override -webkit-box if set */
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+}
+
+
+/* Date stamp */
+.note-date {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: var(--space-xs);
+}
+
+/* ── Card action buttons ─────────────────────────────────────
+   Sit at bottom of card. Separated by a subtle top border.
+────────────────────────────────────────────────────────────── */
+.note-card-actions {
+  display: flex;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-sm);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+  /* very subtle divider */
+}
+
+/* Shared button base */
+.card-btn {
+  flex: 1;
+  /* both buttons share equal width */
+  padding: 5px 0;
+  font-size: 12px;
+  font-family: var(--font-main);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+/* Edit — neutral */
+.card-btn--edit {
+  color: var(--color-text-secondary);
+}
+
+.card-btn--edit:hover {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* Delete — danger color */
+.card-btn--delete {
+  color: var(--color-danger);
+  border-color: transparent;
+}
+
+.card-btn--delete:hover {
+  background: #fdecea;
+}
+
+/* ── Edit mode inputs ────────────────────────────────────────
+   Shown inside the card when user clicks Edit.
+────────────────────────────────────────────────────────────── */
+.card-edit-input {
+  width: 100%;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  background: var(--color-surface);
+  outline: none;
+  margin-bottom: var(--space-sm);
+  transition: border-color 0.2s;
+}
+
+.card-edit-input:focus {
+  border-color: var(--color-accent);
+}
+
+.card-edit-textarea {
+  width: 100%;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  background: var(--color-surface);
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+  transition: border-color 0.2s;
+}
+
+.card-edit-textarea:focus {
+  border-color: var(--color-accent);
+}
+
+/* ── Summarize button ────────────────────────────────────────
+   Full width, accent yellow — stands out as the AI feature.
+   Sits below edit/delete actions.
+────────────────────────────────────────────────────────────── */
+.card-btn--summarize {
+  width: 100%;
+  margin-top: var(--space-sm);
+  padding: 7px;
+  font-size: 12px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  background: var(--color-accent);   /* yellow — signals AI feature */
+  color: var(--color-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.card-btn--summarize:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.card-btn--summarize:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Summary box ─────────────────────────────────────────────
+   Appears below note content when AI summary is ready.
+   Slightly different background to distinguish from note body.
+────────────────────────────────────────────────────────────── */
+.summary-box {
+  margin-top: var(--space-sm);
+  padding: 10px 12px;
+  background: rgba(251, 188, 4, 0.12); /* soft yellow tint */
+  border-left: 3px solid var(--color-accent); /* yellow left border */
+  border-radius: var(--radius-sm);
+}
+
+.summary-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.summary-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-height: none !important; /* override the max-height truncation */
+}
+
+/* Loading and error states */
+.summary-loading {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-sm);
+  font-style: italic;
+}
+
+.summary-error {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-top: var(--space-sm);
+}

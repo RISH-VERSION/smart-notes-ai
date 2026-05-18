@@ -1,0 +1,98 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafaf8;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.register-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 14px;
+    border: 0.5px solid #e8e8e4;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    width: 340px;
+    text-align: center;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 4px;
+    border-radius: 8px;
+    border: 0.5px solid #e8e8e4;
+    background: #fafaf8;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    outline: none;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: #fbbc04;
+    box-shadow: 0 0 0 3px rgba(251,188,4,0.15);
+    background: #fff;
+}
+
+.password-box {
+    position: relative;
+}
+
+.password-box span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+.register-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 11px;
+    background: #202124;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.register-btn:hover {
+    background: #fbbc04;
+    color: #202124;
+}
+
+.register-btn:disabled {
+    background: #e8e8e4;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #d93025;
+    font-size: 12px;
+    text-align: left;
+    margin-top: 3px;
+}
+
+.login-link {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+}
+
+.login-link span {
+    color: #202124;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 1px solid #fbbc04;
+}

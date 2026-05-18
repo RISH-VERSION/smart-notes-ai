@@ -1,0 +1,68 @@
+/* ── CSS Custom Properties (Variables) ──────────────────────
+   Define once here, use everywhere. This is the single source
+   of truth for colors, fonts, spacing. Easy to theme later.
+────────────────────────────────────────────────────────────── */
+:root {
+  /* Brand colors */
+  --color-bg: #fafaf8;           /* off-white — easier on eyes than pure white */
+  --color-surface: #ffffff;      /* card/form backgrounds */
+  --color-border: #e8e8e4;       /* subtle borders throughout */
+  --color-text-primary: #1a1a1a; /* main text — near black, not harsh */
+  --color-text-secondary: #666;  /* muted labels, placeholders */
+  --color-accent: #fbbc04;       /* Google Keep yellow — our brand accent */
+  --color-dark: #202124;         /* buttons, navbar brand */
+  --color-danger: #d93025;       /* delete actions */
+
+  /* Note card colors — like Google Keep */
+  --note-yellow: #fff9c4;
+  --note-green: #e2f6d3;
+  --note-blue: #e8f0fe;
+  --note-yellow-border: #f0e68c;
+  --note-green-border: #b5dea0;
+  --note-blue-border: #b3c9f8;
+
+  /* Spacing scale — consistent gaps */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows — only used where elevation matters */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-form: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-main: 'DM Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif; /* used for headings/brand */
+}
+
+/* ── Reset ───────────────────────────────────────────────────
+   Remove browser default styles so we start from a clean slate.
+   This is standard practice in every real project.
+────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box; /* padding/border included in element width */
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Base styles ─────────────────────────────────────────────
+   Applied to entire app. font-size 16px is the accessible base.
+────────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-main);
+  font-size: 16px;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6; /* comfortable reading line height */
+  -webkit-font-smoothing: antialiased; /* smoother fonts on Mac/Chrome */
+}
+
+/* Import Google Fonts — put this at top of index.css */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap');

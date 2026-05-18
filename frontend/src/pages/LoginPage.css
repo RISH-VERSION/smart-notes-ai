@@ -1,0 +1,170 @@
+/* ── Login Page ───────────────────────────────────────────────
+   Centers the card both vertically and horizontally.
+   Uses flexbox — the most reliable centering method.
+────────────────────────────────────────────────────────────── */
+.login-container {
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
+  min-height: 100vh;       /* full viewport height */
+  background-color: var(--color-bg);
+  padding: var(--space-md); /* padding so card doesn't touch edges on mobile */
+}
+
+.login-card {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 360px; /* cap width on large screens */
+  box-shadow: var(--shadow-form);
+}
+
+/* Heading uses serif font for personality */
+.login-card h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400; /* serif looks good at normal weight */
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.login-card p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.8rem;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;            /* remove ugly default browser outline */
+  transition: border-color 0.2s, box-shadow 0.2s; /* smooth focus animation */
+  margin-bottom: var(--space-md);
+}
+
+/* Focus state — accessibility + UX: user knows which field is active */
+.input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(251, 188, 4, 0.2); /* soft yellow glow */
+  background: var(--color-surface);
+}
+
+/* ── Password field ──────────────────────────────────────────
+   position: relative on wrapper + absolute on span
+   lets us place "Show/Hide" inside the input visually.
+────────────────────────────────────────────────────────────── */
+.password-box {
+  position: relative; /* anchor for the Show/Hide span */
+}
+
+.password-box .input {
+  padding-right: 56px; /* make room for the Show/Hide text */
+}
+
+.password-box span {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-60%); /* vertically center the span */
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  user-select: none; /* prevent text highlight on click */
+}
+
+.password-box span:hover {
+  color: var(--color-text-primary);
+}
+
+/* ── Error messages ──────────────────────────────────────────
+   Small red text shown under a field when validation fails.
+────────────────────────────────────────────────────────────── */
+.error {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-top: -10px; /* pull up closer to input */
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Login button ────────────────────────────────────────────
+   Full width, dark background — the primary action on this page.
+────────────────────────────────────────────────────────────── */
+.login-btn {
+  width: 100%;
+  padding: 11px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  color: #fff;
+  background: var(--color-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-top: var(--space-sm);
+  transition: opacity 0.2s; /* smooth hover feedback */
+}
+
+.login-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+/* disabled state — shown while loading */
+.login-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Register link ───────────────────────────────────────────
+   Takes user to register page. Span acts as a clickable link.
+────────────────────────────────────────────────────────────── */
+.register-link {
+  margin-top: var(--space-md);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.register-link span {
+  color: var(--color-accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 11px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-top: var(--space-sm);
+}
+
+.google-btn:hover {
+  background: var(--color-bg);
+} 
+
+.google-btn img {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.google-btn span {
+  color: var(--color-text-primary);
+}
