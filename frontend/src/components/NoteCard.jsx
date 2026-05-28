@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { summarizeNoteAPI } from "../services/api";
 import './NoteCard.css';
 
-// Color variants — cycles through colors like Google Keep
-// Interview tip: modulo (%) operator cycles index back to 0
 const CARD_COLORS = ['', 'note-card--yellow', 'note-card--green', 'note-card--blue'];
+
+// How many characters to show before truncating
+const CONTENT_LIMIT = 120;
 
 function NoteCard({ note, onDelete, onUpdate, index }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,15 +15,22 @@ function NoteCard({ note, onDelete, onUpdate, index }) {
     content: note.content
   });
 
-  // ── Summarize state ────────────────────────────────────────
-  const [summary, setSummary] = useState(null);       // stores AI summary text
-  const [summarizing, setSummarizing] = useState(false); // loading state
-  const [summaryError, setSummaryError] = useState(null); // error state
+  // ── Expand/Collapse state ──────────────────────────────────
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isBigNote = note.content.length > CONTENT_LIMIT;
+  const displayedContent = isBigNote && !isExpanded
+    ? note.content.slice(0, CONTENT_LIMIT) + '...'
+    : note.content;
 
-  // Sync editNote if parent updates the note (e.g. after save)
+  // ── Summarize state ────────────────────────────────────────
+  const [summary, setSummary] = useState(null);
+  const [summarizing, setSummarizing] = useState(false);
+  const [summaryError, setSummaryError] = useState(null);
+
   useEffect(() => {
     setEditNote({ title: note.title, content: note.content });
-    setSummary(null); // clear summary when note changes
+    setSummary(null);
+    setIsExpanded(false); // reset expand when note changes
   }, [note]);
 
   const handleChange = (e) => {
@@ -42,21 +50,16 @@ function NoteCard({ note, onDelete, onUpdate, index }) {
     setIsEditing(false);
   };
 
-  // ── Summarize handler ──────────────────────────────────────
-  // Toggle behaviour — if summary already shown, hide it
-  // If not shown, call Gemini API and display result
   const handleSummarize = async () => {
     if (summary) {
-      setSummary(null); // toggle off
+      setSummary(null);
       return;
     }
-
     setSummarizing(true);
     setSummaryError(null);
-
     try {
       const data = await summarizeNoteAPI(note.title, note.content);
-      setSummary(data.result); // backend returns { summary: "..." }
+      setSummary(data.result);
     } catch (err) {
       setSummaryError('Could not summarize. Try again.');
     } finally {
@@ -64,7 +67,6 @@ function NoteCard({ note, onDelete, onUpdate, index }) {
     }
   };
 
-  // Derive color class from index — cycles yellow → green → blue → white
   const colorClass = CARD_COLORS[index % CARD_COLORS.length];
 
   return (
@@ -97,12 +99,28 @@ function NoteCard({ note, onDelete, onUpdate, index }) {
       ) : (
         <>
           <h3>{note.title}</h3>
-          <p>{note.content}</p>
 
-          {/* ── AI Summary section ───────────────────────────
-              Only renders when summarizing or summary exists.
-              Conditional rendering — React best practice.
+          {/* ── Content with expand/collapse ─────────────────
+              Shows truncated text for long notes.
+              "Show more ▾ / Show less ▴" button appears only
+              when content exceeds CONTENT_LIMIT characters.
           ─────────────────────────────────────────────────── */}
+          <div className={`note-content-wrapper ${isBigNote && isExpanded ? 'note-content-wrapper--expanded' : ''}`}>
+            <p className="note-content">
+              {isBigNote && !isExpanded ? note.content.slice(0, CONTENT_LIMIT) + '...' : note.content}
+            </p>
+          </div>
+
+          {isBigNote && (
+            <button
+              className="card-btn card-btn--expand"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? 'Show less ▴' : 'Show more ▾'}
+            </button>
+          )}
+
+          {/* ── AI Summary section ───────────────────────────── */}
           {summarizing && (
             <p className="summary-loading">✨ Summarizing...</p>
           )}
@@ -133,7 +151,6 @@ function NoteCard({ note, onDelete, onUpdate, index }) {
             </button>
           </div>
 
-          {/* Summarize button — separate row, full width */}
           <button
             className="card-btn card-btn--summarize"
             onClick={handleSummarize}

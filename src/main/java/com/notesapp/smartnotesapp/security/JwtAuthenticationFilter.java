@@ -34,8 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // 1. ✅ BYPASS: Skip JWT logic for public and OAuth2 endpoints
-        // This prevents "Invalid credentials" errors during Google login redirect
+        // 1. Skip JWT logic for public and OAuth2 endpoints
         if (path.startsWith("/api/users/register") || 
             path.startsWith("/api/users/login") || 
             path.startsWith("/login/oauth2") || 
@@ -48,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // 2. ✅ GUARD: If no Bearer token is present, just continue the chain
+        // 2. If no Bearer token is present, just continue the chain
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -65,27 +64,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 3. ✅ AUTHENTICATE: Standard JWT validation
-     // 3. ✅ AUTHENTICATE: Standard JWT validation
+        // 3. Standard JWT validation
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println("🔍 Extracted username: " + username);
             
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            System.out.println("🔍 UserDetails username: " + userDetails.getUsername());
             
             boolean valid = jwtUtil.isTokenValid(token, userDetails);
-            System.out.println("🔍 isTokenValid: " + valid);
-            System.out.println("🔍 Token expired? " + new java.util.Date().after(
-                io.jsonwebtoken.Jwts.parser()
-                    .verifyWith(jwtUtil.getKey())  // we'll add getKey() below
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload()
-                    .getExpiration()
-            ));
-
+            
             if (valid) {
-                System.out.println("✅ Authenticated: " + username);
                 UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(
                         userDetails,
@@ -94,12 +80,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-            } else {
-                System.out.println("❌ Token invalid for user: " + username);
             }
-        } else {
-            System.out.println("❌ username null OR already authenticated");
-        }
+         }
 
         filterChain.doFilter(request, response);
     }

@@ -16,12 +16,11 @@ import com.notesapp.smartnotesapp.service.UserService;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin removed — handled globally in SecurityConfig
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    // ✅ Constructor injection
+    // Constructor injection
     private final UserService userService;
 
     public UserController(UserService userService) {

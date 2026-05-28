@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AppConfig {
 
-    // ✅ Moving this here breaks the circular dependency
+    // Moving this here breaks the circular dependency
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

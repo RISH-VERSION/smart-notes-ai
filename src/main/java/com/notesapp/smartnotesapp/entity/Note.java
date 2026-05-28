@@ -21,33 +21,33 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ length = 200 — reasonable title limit
+    //  length = 200 — reasonable title limit
     @Column(nullable = false, length = 200)
     private String title;
 
-    // ✅ length = 5000 — good for note content
+    //  length = 5000 — good for note content
     @Column(nullable = false, length = 5000)
     private String content;
 
-    // ✅ ManyToOne — many notes belong to one user
+    //  ManyToOne — many notes belong to one user
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    // ✅ Timestamps — track when note was created/updated
+    // Timestamps — track when note was created/updated
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    // ✅ Auto set on first save
+    //  Auto set on first save
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
-    // ✅ Auto update on every save
+    //  Auto update on every save
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

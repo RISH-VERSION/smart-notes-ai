@@ -45,7 +45,6 @@ public class RagService {
         this.ragEvaluationService = ragEvaluationService;
     }
     
-    
     public void indexNote(Long noteId, String title, String content) {
         String text = "Title: " + title + "\nContent: " + content;
         
@@ -102,7 +101,7 @@ public class RagService {
 
         String answer = geminiService.generate(prompt);
 
-        ragEvaluationService.evaluateAndLogAsync(query, chunks, answer, answer, userId);
+//        ragEvaluationService.evaluateAndLogAsync(query, chunks, answer, answer, userId);
 
         return answer;
     }

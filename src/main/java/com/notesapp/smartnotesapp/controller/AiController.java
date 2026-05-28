@@ -62,8 +62,7 @@ public class AiController {
                     .body(AiResponse.failure("AI service unavailable, try again later"));
         }
     }
-
-    // POST /api/ai/search
+    
     @PostMapping("/search")
     public ResponseEntity<?> semanticSearch(
             @RequestBody Map<String, String> request,
@@ -110,7 +109,7 @@ public class AiController {
         }
 
         try {
-            // ✅ pass username from JWT
+            // pass username from JWT
             String username = principal.getName();
             String response = agentService.chat(message, username);
             return ResponseEntity.ok(Map.of("result", response));

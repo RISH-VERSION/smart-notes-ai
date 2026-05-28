@@ -21,7 +21,7 @@ public class NoteService {
         this.userRepository = userRepository;
     }
 
-    // ✅ FIXED: Try email first (OAuth2 users), fallback to username (JWT users)
+    // FIXED: Try email first (OAuth2 users), fallback to username (JWT users)
     private UserEntity getUser(String identifier) {
         return userRepository.findByEmail(identifier)
                 .or(() -> userRepository.findByUsername(identifier))

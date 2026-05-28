@@ -108,7 +108,12 @@ public class RagasClient {
             .uri("/evaluate")
             .bodyValue(request)
             .retrieve()
-            .bodyToMono(EvaluationResponse.class)
+            .bodyToMono(String.class)
+            .doOnNext(raw -> System.out.println("RAGAS RAW JSON: " + raw))
+            .map(raw -> {
+                try { return objectMapper.readValue(raw, EvaluationResponse.class); }
+                catch (Exception e) { return buildFallbackResponse(); }
+            })
             .doOnError(e -> System.err.println("RAGAS evaluation failed: " + e.getMessage()))
             .onErrorReturn(buildFallbackResponse());
     }

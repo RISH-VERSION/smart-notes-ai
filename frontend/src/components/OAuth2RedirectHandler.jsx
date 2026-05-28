@@ -13,7 +13,6 @@ const OAuth2RedirectHandler = () => {
 
         if (token) {
             saveToken(token);
-            console.log("Token saved:", getToken()); // add this
             navigate("/notes");
         } else {
             navigate("/login");
@@ -21,12 +20,7 @@ const OAuth2RedirectHandler = () => {
     }, [location, navigate]);
 
     return (
-        <div className="login-container">
-            <div className="login-card" style={{ textAlign: 'center' }}>
-                <h2>Finishing Login...</h2>
-                <div className="loader"></div> {/* Optional: Add a CSS spinner here */}
-            </div>
-        </div>
+        <h2>Finishing Login...</h2>
     );
 };
 

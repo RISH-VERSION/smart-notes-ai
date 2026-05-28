@@ -39,6 +39,7 @@ public class RagEvaluationService {
             .subscribe(response -> {
                 if ("success".equals(response.getStatus())) {
                     RagasClient.Scores s = response.getScores();
+                    try { System.out.println("RAW SCORES: " + objectMapper.writeValueAsString(s)); } catch (Exception e) {}
                     RagEvaluationLog log = new RagEvaluationLog();
                     log.setQuestion(question);
                     log.setAnswer(geminiAnswer);

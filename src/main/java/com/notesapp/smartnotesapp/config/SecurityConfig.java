@@ -25,7 +25,7 @@ import com.notesapp.smartnotesapp.service.CustomUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // ✅ Centralized endpoints - /login/oauth2/** is critical for the Google redirect
+    // Centralized endpoints - /login/oauth2/** is critical for the Google redirect
     public static final String[] PUBLIC_ENDPOINTS = {
         "/api/users/register",
         "/api/users/login",

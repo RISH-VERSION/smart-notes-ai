@@ -42,7 +42,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
-        //  No return — controller handles response
     }
     
     @Transactional
@@ -72,7 +71,7 @@ public class UserService {
         UserEntity newUser = new UserEntity();
         newUser.setEmail(email);
         newUser.setUsername(finalUsername);
-        newUser.setPassword(passwordEncoder.encode("OAUTH2_NO_PASSWORD_" + email)); // ← not empty string
+        newUser.setPassword(passwordEncoder.encode("OAUTH2_NO_PASSWORD_" + email));
         userRepository.save(newUser);
     }
 }
